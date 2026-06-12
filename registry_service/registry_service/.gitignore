@@ -1,9 +1,11 @@
 HELP.md
-.gradle
+registry_service/registry_service/.gradle
 build/
 !gradle/wrapper/gradle-wrapper.jar
 !**/src/main/**/build/
 !**/src/test/**/build/
+.gradle/
+.idea/
 
 ### STS ###
 .apt_generated

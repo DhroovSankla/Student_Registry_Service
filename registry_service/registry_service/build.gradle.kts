@@ -1,33 +1,41 @@
 plugins {
-	java
-	id("org.springframework.boot") version "4.0.6"
-	id("io.spring.dependency-management") version "1.1.7"
+    java
+    id("org.springframework.boot") version "3.3.0"
+    // REMOVED: io.spring.dependency-management plugin to stop the Gradle 9 lifecycle mutation error
 }
 
 group = "com.studentregistry"
 version = "0.0.1-SNAPSHOT"
 
 java {
-	toolchain {
-		languageVersion = JavaLanguageVersion.of(21)
-	}
+    toolchain {
+        languageVersion.set(JavaLanguageVersion.of(21))
+    }
 }
 
 repositories {
-	mavenCentral()
+    mavenCentral()
 }
 
 dependencies {
-	implementation("org.springframework.boot:spring-boot-starter-data-jpa")
-	implementation("org.springframework.boot:spring-boot-starter-validation")
-	implementation("org.springframework.boot:spring-boot-starter-webmvc")
-	runtimeOnly("com.mysql:mysql-connector-j")
-	testImplementation("org.springframework.boot:spring-boot-starter-data-jpa-test")
-	testImplementation("org.springframework.boot:spring-boot-starter-validation-test")
-	testImplementation("org.springframework.boot:spring-boot-starter-webmvc-test")
-	testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+    // We use the Spring Boot Platform Bill of Materials (BOM) to enforce perfect version alignment matching 3.3.0 natively
+    implementation(platform("org.springframework.boot:spring-boot-dependencies:3.3.0"))
+
+    // Core Spring Boot Application Starters
+    implementation("org.springframework.boot:spring-boot-starter-web")
+    implementation("org.springframework.boot:spring-boot-starter-data-jpa")
+    implementation("org.springframework.boot:spring-boot-starter-validation")
+    runtimeOnly("com.mysql:mysql-connector-j")
+
+    // Database Version Control Engine
+    implementation("org.flywaydb:flyway-core")
+    implementation("org.flywaydb:flyway-mysql")
+
+    // Unified Testing Framework
+    testImplementation("org.springframework.boot:spring-boot-starter-test")
+    testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 }
 
 tasks.withType<Test> {
-	useJUnitPlatform()
+    useJUnitPlatform()
 }
