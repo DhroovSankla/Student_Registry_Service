@@ -3,6 +3,8 @@ package com.studentregistry.registry_service.controller;
 import com.studentregistry.registry_service.dto.StudentRegistrationRequest;
 import com.studentregistry.registry_service.model.Student;
 import com.studentregistry.registry_service.service.StudentService;
+import com.studentregistry.registry_service.service.NotificationProducer;
+import org.springframework.beans.factory.annotation.Autowired;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +18,9 @@ public class StudentController {
 
     private final StudentService studentService;
 
+    @Autowired
+    private NotificationProducer notificationProducer;
+
     public StudentController(StudentService studentService) {
         this.studentService = studentService;
     }
@@ -23,6 +28,12 @@ public class StudentController {
     @PostMapping
     public ResponseEntity<Student> createStudent(@Valid @RequestBody StudentRegistrationRequest request) {
         Student savedStudent = studentService.registerStudent(request);
+
+        notificationProducer.sendRegistrationNotification(
+                savedStudent.getName(),
+                savedStudent.getEmail()
+        );
+
         return new ResponseEntity<>(savedStudent, HttpStatus.CREATED);
     }
 
