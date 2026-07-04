@@ -1,7 +1,6 @@
 plugins {
     java
     id("org.springframework.boot") version "3.3.0"
-    // REMOVED: io.spring.dependency-management plugin to stop the Gradle 9 lifecycle mutation error
 }
 
 group = "com.studentregistry"
@@ -18,7 +17,6 @@ repositories {
 }
 
 dependencies {
-    // We use the Spring Boot Platform Bill of Materials (BOM) to enforce perfect version alignment matching 3.3.0 natively
     implementation(platform("org.springframework.boot:spring-boot-dependencies:3.3.0"))
 
     // Core Spring Boot Application Starters
@@ -39,6 +37,9 @@ dependencies {
     testImplementation(platform("org.testcontainers:testcontainers-bom:1.19.8"))
     testImplementation("org.testcontainers:junit-jupiter")
     testImplementation("org.testcontainers:mysql")
+
+    // The Apache Kafka messaging engine dependency
+    implementation("org.springframework.kafka:spring-kafka")
 }
 
 tasks.withType<Test> {
