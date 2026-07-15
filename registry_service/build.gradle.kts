@@ -23,7 +23,13 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
     implementation("org.springframework.boot:spring-boot-starter-validation")
+    implementation("org.springframework.boot:spring-boot-starter-security")
     runtimeOnly("com.mysql:mysql-connector-j")
+
+    // JWT Engine Matrix
+    implementation("io.jsonwebtoken:jjwt-api:0.12.5")
+    runtimeOnly("io.jsonwebtoken:jjwt-impl:0.12.5")
+    runtimeOnly("io.jsonwebtoken:jjwt-jackson:0.12.5")
 
     // Database Version Control Engine
     implementation("org.flywaydb:flyway-core")
@@ -44,4 +50,17 @@ dependencies {
 
 tasks.withType<Test> {
     useJUnitPlatform()
+}
+
+// Automatically parse and inject local environment variables before executing tasks
+tasks.withType<org.springframework.boot.gradle.tasks.run.BootRun> {
+    val envFile = file(".env")
+    if (envFile.exists()) {
+        envFile.readLines().forEach { line ->
+            if (line.isNotBlank() && !line.startsWith("#") && line.contains("=")) {
+                val parts = line.split("=", limit = 2)
+                environment(parts[0].trim(), parts[1].trim())
+            }
+        }
+    }
 }

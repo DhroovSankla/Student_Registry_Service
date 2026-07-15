@@ -31,7 +31,7 @@ public class StudentService {
         }
 
         // Transform incoming DTO contract data directly into a clean persistence DB Entity
-        Student student = new Student(request.name(), request.email(), request.rollNumber());
+        Student student = new Student(request.name(), request.email(), request.rollNumber(), request.department());
         return studentRepository.save(student);
     }
 

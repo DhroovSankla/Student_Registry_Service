@@ -15,5 +15,11 @@ public record StudentRegistrationRequest(
 
         @NotBlank(message = "Roll number cannot be blank")
         @Size(min = 3, max = 50, message = "Roll number must be between 3 and 50 characters")
-        String rollNumber
+        String rollNumber,
+
+        @NotBlank(message = "Department cannot be blank")
+        String department,
+
+        String channel,
+        String templateType
 ) {}

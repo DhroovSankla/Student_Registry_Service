@@ -31,7 +31,11 @@ public class StudentController {
 
         notificationProducer.sendRegistrationNotification(
                 savedStudent.getName(),
-                savedStudent.getEmail()
+                savedStudent.getEmail(),
+                savedStudent.getRollNumber(),
+                savedStudent.getDepartment(),
+                request.channel(),
+                request.templateType()
         );
 
         return new ResponseEntity<>(savedStudent, HttpStatus.CREATED);

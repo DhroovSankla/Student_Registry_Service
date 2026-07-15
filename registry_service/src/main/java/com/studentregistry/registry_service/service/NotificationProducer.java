@@ -19,18 +19,26 @@ public class NotificationProducer {
 
     private static final String TOPIC = "notification-hub-topic";
 
-    public void sendRegistrationNotification(String studentName, String studentEmail) {
+    public void sendRegistrationNotification(String studentName, String studentEmail, String rollNumber, String department, String channel, String templateType) {
         try {
             // 1. Generate a unique event tracking identifier
             String eventId = "evt_" + UUID.randomUUID().toString().substring(0, 8);
+
+            // Set defaults if not provided
+            String activeChannel = (channel == null || channel.trim().isEmpty()) ? "EMAIL" : channel;
+            String activeTemplate = (templateType == null || templateType.trim().isEmpty()) ? "WELCOME" : templateType;
 
             // 2. Formulate the notification contents matching our microservice matrix schema
             NotificationEvent event = new NotificationEvent(
                     eventId,
                     studentEmail,
-                    "EMAIL",
-                    "Welcome to the University Cluster!",
-                    String.format("Hi %s, your student profile registry profile has been verified successfully!", studentName)
+                    activeChannel,
+                    "Welcome Notification", // default subject, will be overridden by template compilation on App 2
+                    "Verification Pending", // default body
+                    studentName,
+                    rollNumber,
+                    department,
+                    activeTemplate
             );
 
             // 3. Transform the rich object into a raw JSON string payload string

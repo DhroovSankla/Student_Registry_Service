@@ -23,13 +23,17 @@ public class Student {
     @Column(name = "created_at", nullable = false, updatable = false)
     private LocalDateTime createdAt;
 
+    @Column(length = 100)
+    private String department;
+
     // Hibernate requires a protected/public no-arg constructor
     public Student() {}
 
-    public Student(String name, String email, String rollNumber) {
+    public Student(String name, String email, String rollNumber, String department) {
         this.name = name;
         this.email = email;
         this.rollNumber = rollNumber;
+        this.department = department;
     }
 
     @PrePersist
@@ -47,4 +51,6 @@ public class Student {
     public String getRollNumber() { return rollNumber; }
     public void setRollNumber(String rollNumber) { this.rollNumber = rollNumber; }
     public LocalDateTime getCreatedAt() { return createdAt; }
+    public String getDepartment() { return department; }
+    public void setDepartment(String department) { this.department = department; }
 }
