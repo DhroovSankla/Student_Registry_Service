@@ -7,7 +7,6 @@ build/
 .gradle/
 .idea/
 registry_service/.env
-registry_service/.env.local
 
 ### STS ###
 .apt_generated
