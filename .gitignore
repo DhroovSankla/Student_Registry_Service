@@ -6,8 +6,9 @@ build/
 !**/src/test/**/build/
 .gradle/
 .idea/
-.env
-.env.local
+registry_service/.env
+registry_service/.env.local
+
 ### STS ###
 .apt_generated
 .classpath
