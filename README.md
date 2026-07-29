@@ -32,7 +32,13 @@ This microservice is part of a 2-part event-driven system. The companion consume
 
 ### Prerequisites
 * JDK 21 installed.
-* Docker running (for MySQL & Kafka brokers. Set up via the Compose file in App 2).
+* Docker running.
+
+### 0. Start the MySQL Database
+Navigate to the repository root directory and start the local MySQL instance:
+```bash
+docker compose up -d
+```
 
 ### 1. Configure Local Environment Variables
 Create a `.env` file inside the `registry_service/` folder:
