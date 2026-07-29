@@ -1,0 +1,13 @@
+version: '3.8'
+
+services:
+  # MySQL Database exclusively for Student Registry (App 1)
+  mysql:
+    image: mysql:8.0
+    container_name: registry-mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: student_registry_db
+    ports:
+      - "3306:3306"
+    restart: always
