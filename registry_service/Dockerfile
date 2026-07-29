@@ -6,7 +6,7 @@ COPY gradle /app/gradle
 COPY src /app/src
 
 # Build the executable production JAR
-RUN ./gradlew bootJar --no-daemon
+RUN gradle bootJar --no-daemon
 
 # --- Runner Stage ---
 FROM eclipse-temurin:21-jre-alpine
