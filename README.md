@@ -38,6 +38,10 @@ This microservice is part of a 2-part event-driven system. The companion consume
 Create a `.env` file inside the `registry_service/` folder:
 ```env
 JWT_SECRET=EnterpriseGradeSecretKeyThatIsAtLeast32BytesLong123!@#
+DB_URL=jdbc:mysql://localhost:3306/student_registry_db?allowPublicKeyRetrieval=true&useSSL=false
+DB_USERNAME=root
+DB_PASSWORD=root
+KAFKA_BROKERS=localhost:9092
 ```
 
 ### 2. Launch the Application
